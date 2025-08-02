@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy 21st Birthday 🎉</title>
+  <meta charset="UTF-8">
+  <title>Happy 21st Sophia 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <div id="intro" class="card">
-    <h1>Happy 21st Birthday 🥳</h1>
-    <p>Blow out the candles to reveal your surprise ✨</p>
-    <p class="note">Make a wish and blow towards the screen 💨</p>
+  <!-- 🎂 Cake Screen -->
+  <div id="cakeScreen" class="screen">
+    <img src="cake.png" id="cakeImage" alt="Birthday Cake" />
+    <p>Blow out the candles to see your surprise! 🎂</p>
   </div>
 
-  <div id="content">
+  <!-- 💌 Birthday Card -->
+  <div id="cardScreen" class="screen hidden">
     <div class="card">
-      <h2>She's on her way to you 💖</h2>
-      <div id="countdown"></div>
-      <div id="distance">Calculating distance...</div>
+      <h1>Happy 21st Birthday, Sophia! 💖</h1>
+      <p>
+        Today, we celebrate you — your laughter, your kindness, and the joy you bring into the world.
+        <br><br>
+        Here’s something magical counting down to when we hug again.
+      </p>
+      <button id="showCountdown">Show Me ✨</button>
     </div>
+  </div>
+
+  <!-- ✈️ Countdown & Plane -->
+  <div id="countdownScreen" class="screen hidden">
+    <h2>Reunion Countdown</h2>
+    <div id="countdown">Loading...</div>
+    <div id="distance">Calculating...</div>
     <div id="map"></div>
-    <div class="card">
-      <p>Love knows no distance. Soon, you'll be together again. ✈️💞</p>
-      <p class="note">Made just for you, with all my heart. ❤️</p>
-    </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="client.js"></script>
 </body>
