@@ -1,98 +1,132 @@
-body {
+/* General reset and styling */
+body, html {
   margin: 0;
   padding: 0;
-  background-color: #000;
+  background: #000;
   color: #fff;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Hide all screens by default */
+#cake-screen, #card-screen, #countdown-screen {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #ff4081;
+  background: linear-gradient(135deg, #ff3366 0%, #ff6699 100%);
+  color: white;
+  transition: opacity 0.6s ease;
+}
+
+/* Show active screen */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Cake screen styling */
+#cake-screen img {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+#cake-screen h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+#cake-screen p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+/* Card screen - postcard style */
+#card-screen {
+  background: #ffe6e6;
+  color: #333;
+  box-shadow: 0 0 20px rgba(255, 64, 129, 0.7);
+  border-radius: 25px;
+  font-family: 'Georgia', serif;
+  padding: 40px 30px;
+  max-width: 420px;
+  text-align: left;
+}
+
+#card-screen h2 {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  color: #ff3366;
   text-align: center;
 }
 
-.screen {
-  display: none;
-  padding: 30px;
+#card-screen p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 25px;
+  color: #555;
 }
 
-.screen:not(.hidden) {
+#card-screen button {
   display: block;
-}
-
-#cakeImage {
-  max-width: 300px;
-  margin: 20px auto;
-  display: block;
-}
-
-.card {
-  background-color: #fff;
-  color: #000;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  max-width: 500px;
   margin: 0 auto;
+  background-color: #ff3366;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 10px rgba(255, 51, 102, 0.6);
+  transition: background-color 0.3s ease;
 }
 
-button {
-  margin-top: 20px;
-  padding: 12px 24px;
-  background: #000;
-  color: #fff;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+#card-screen button:hover {
+  background-color: #e62e5c;
+}
+
+/* Countdown screen (plane & map) */
+#countdown-screen {
+  background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+  border-radius: 20px;
+  padding: 20px;
+  color: white;
+  max-width: 500px;
+  box-shadow: 0 0 20px #00b4d8;
+}
+
+#countdown {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+#distance {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
 }
 
 #map {
-  height: 400px;
-  margin-top: 20px;
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.7);
 }
 
-.hidden {
-  display: none !important;
+/* Smooth fade effect */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
 }
-
-.card.postcard {
-  max-width: 600px;
-  margin: 60px auto;
-  padding: 40px;
-  background: #fff8f0;
-  border: 2px solid #ddd;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  text-align: left;
-  font-family: 'Homemade Apple', cursive;
-  color: #333;
-  line-height: 1.6;
-  position: relative;
-  transition: transform 0.6s ease;
-}
-
-.card.postcard h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.card.postcard p {
-  font-size: 20px;
-  white-space: pre-line;
-}
-
-#showButton {
-  display: block;
-  margin: 30px auto 0;
-  padding: 12px 24px;
-  font-size: 16px;
-  background-color: #ff4f70;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: background 0.3s ease;
-}
-
-#showButton:hover {
-  background-color: #e73a5c;
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
