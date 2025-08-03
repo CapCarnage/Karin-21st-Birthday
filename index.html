@@ -3,231 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Birthday Hug Countdown</title>
+  <title>21st Birthday Surprise</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
   <style>
     body {
-      background: #000;
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #eee;
       text-align: center;
-      margin: 0; padding: 0;
-      height: 100vh;
-      display: flex;
+      overflow-x: hidden;
+    }
+
+    .screen {
+      display: none;
+      padding: 40px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+      background-color: #222;
+      color: #fff;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
-    .screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 90%;
-      max-width: 400px;
-      padding: 20px;
-      border-radius: 12px;
-      background: #111;
-      box-shadow: 0 0 20px #555;
-    }
-    .active {
+
+    .screen.active {
       display: flex;
     }
-    img {
-      max-width: 100%;
-      border-radius: 12px;
-      margin-bottom: 15px;
+
+    #cake-screen img {
+      max-width: 200px;
+      margin-bottom: 20px;
     }
+
     button {
-      padding: 12px 20px;
-      font-size: 1rem;
+      background: #4caf50;
       border: none;
-      border-radius: 8px;
-      background: #28a745;
       color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 5px;
       cursor: pointer;
       margin-top: 15px;
+      transition: background 0.3s ease;
     }
     button:hover {
-      background: #218838;
+      background: #45a049;
     }
-    #planeMap {
-      width: 100%;
-      height: 250px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 15px;
+
+    #card-screen {
+      background: #f9f5e3;
+      color: #333;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      max-width: 400px;
+      margin: auto;
+      padding: 30px;
+      flex-direction: column;
+      font-family: 'Georgia', serif;
     }
-    h1 {
+
+    #card-screen h2 {
+      margin-top: 0;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 2.5rem;
+      color: #a0522d;
+    }
+
+    #card-screen p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    #countdown-screen {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    #map {
+      height: 60vh;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 0 15px rgba(255 255 255 / 0.3);
+    }
+
+    #countdown {
+      font-size: 2rem;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    #distance {
+      font-size: 1.2rem;
       margin-bottom: 10px;
     }
   </style>
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-
-  <!-- 1. Cake Blow Screen -->
-  <div id="cakeScreen" class="screen active">
-    <h1>Blow Out Your Candles!</h1>
-    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Birthday Cake" />
-    <p>Blow into your mic to reveal your birthday message!</p>
+  <!-- Screen 1: Cake -->
+  <div id="cake-screen" class="screen active">
+    <img src="https://img.icons8.com/emoji/96/birthday-cake-emoji.png" alt="Birthday Cake" />
+    <h1>Blow out the candles to reveal your surprise!</h1>
   </div>
 
-  <!-- 2. Birthday Card Screen -->
-  <div id="cardScreen" class="screen">
-    <h1>Happy 21st Birthday!</h1>
-    <p style="font-size:1.2rem; margin: 15px 0;">
-      Wishing you all the joy, laughter, and love on your special day. You’re amazing and so loved!
-    </p>
-    <button id="goToCountdownBtn">See Your Hug Countdown</button>
+  <!-- Screen 2: Birthday Card -->
+  <div id="card-screen" class="screen">
+    <h2>Happy 21st Birthday!</h2>
+    <p>Wishing you endless joy, love, and unforgettable moments on your special day. Here's to you and all the amazing adventures ahead! 🎉🎂❤️</p>
+    <button id="goToCountdown">See Your Surprise</button>
   </div>
 
-  <!-- 3. Countdown & Plane Animation -->
-  <div id="countdownScreen" class="screen">
-    <h1>First Hug In:</h1>
-    <div id="countdown" style="font-size: 2rem; margin-bottom: 8px;"></div>
-    <div id="distance" style="font-size: 1.2rem; margin-bottom: 10px;">Calculating distance...</div>
-    <div id="planeMap"></div>
+  <!-- Screen 3: Countdown + Map -->
+  <div id="countdown-screen" class="screen">
+    <h1>First Hug Countdown</h1>
+    <div id="countdown">Loading...</div>
+    <div id="distance">Calculating distance...</div>
+    <div id="map"></div>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Elements
-    const cakeScreen = document.getElementById('cakeScreen');
-    const cardScreen = document.getElementById('cardScreen');
-    const countdownScreen = document.getElementById('countdownScreen');
-    const goToCountdownBtn = document.getElementById('goToCountdownBtn');
-
-    // Mic blowing detection variables
-    let audioContext, analyser, microphone, dataArray;
-    let blowingDetected = false;
-
-    // Start mic and analyze sound levels
-    async function startBlowDetection() {
-      try {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        microphone = audioContext.createMediaStreamSource(stream);
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 512;
-        microphone.connect(analyser);
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-        detectBlow();
-      } catch (e) {
-        alert('Microphone access is needed to blow out the candles.');
-      }
-    }
-
-    function detectBlow() {
-      analyser.getByteFrequencyData(dataArray);
-      let sum = 0;
-      for(let i = 0; i < dataArray.length; i++) {
-        sum += dataArray[i];
-      }
-      const average = sum / dataArray.length;
-
-      // Threshold for blowing sound - tweak if needed
-      if (average > 40) {
-        blowingDetected = true;
-        // Transition to card screen
-        cakeScreen.classList.remove('active');
-        cardScreen.classList.add('active');
-        stopBlowDetection();
-      } else if (!blowingDetected) {
-        requestAnimationFrame(detectBlow);
-      }
-    }
-
-    function stopBlowDetection() {
-      if (microphone) microphone.disconnect();
-      if (analyser) analyser.disconnect();
-      if (audioContext) audioContext.close();
-    }
-
-    // On page load start listening for blow
-    window.onload = () => {
-      startBlowDetection();
-    };
-
-    // Button click transitions from card to countdown screen
-    goToCountdownBtn.onclick = () => {
-      cardScreen.classList.remove('active');
-      countdownScreen.classList.add('active');
-      startCountdown();
-    };
-
-    // --- Countdown and Plane Animation ---
-
-    const startDate = new Date('2025-09-02T01:15:00+01:00').getTime(); // Dublin time, 2 Sept 1:15 AM BST (UTC+1)
-    const targetDate = startDate; // The plane lands exactly at the startDate for this demo
-
-    const countdownEl = document.getElementById("countdown");
-    const distanceEl = document.getElementById("distance");
-
-    // Map Setup
-    const map = L.map('planeMap').setView([50.5, 12], 5); // Center Europe
-
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '',
-      maxZoom: 18
-    }).addTo(map);
-
-    const bratislava = [48.1486, 17.1077];
-    const dublin = [53.3498, -6.2603];
-
-    L.polyline([bratislava, dublin], {color: 'white', weight: 2, opacity: 0.7}).addTo(map);
-
-    const planeIcon = L.icon({
-      iconUrl: 'https://img.icons8.com/ios-filled/50/ffffff/airplane-take-off.png',
-      iconSize: [30, 30]
-    });
-
-    const planeMarker = L.marker(bratislava, {icon: planeIcon}).addTo(map);
-
-    function calcDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371;
-      const dLat = (lat2 - lat1) * Math.PI / 180;
-      const dLon = (lon2 - lon1) * Math.PI / 180;
-      const a = 0.5 - Math.cos(dLat)/2 + 
-                Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * 
-                (1 - Math.cos(dLon))/2;
-      return (R * 2 * Math.asin(Math.sqrt(a))).toFixed(1);
-    }
-
-    function startCountdown() {
-      const totalDuration = targetDate - startDate;
-
-      function update() {
-        const now = Date.now();
-        const distance = targetDate - now;
-
-        if (distance <= 0) {
-          countdownEl.textContent = "You're here! ❤️";
-          distanceEl.textContent = "Welcome to Dublin!";
-          planeMarker.setLatLng(dublin);
-          return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-        // progress from Bratislava to Dublin
-        const elapsed = now - startDate;
-        let progress = 1 - Math.min(Math.max(elapsed / totalDuration, 0), 1); // reversed
-
-        const lat = bratislava[0] + (dublin[0] - bratislava[0]) * progress;
-        const lng = bratislava[1] + (dublin[1] - bratislava[1]) * progress;
-        planeMarker.setLatLng([lat, lng]);
-
-        const remainingDistance = calcDistance(lat, lng, dublin[0], dublin[1]);
-        distanceEl.textContent = `Remaining: ${remainingDistance} km`;
-
-        requestAnimationFrame(update);
-      }
-      update();
-    }
-  </script>
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ></script>
+  <script src="client.js"></script>
 </body>
 </html>
