@@ -2,177 +2,195 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Birthday Surprise</title>
-
+  <title>Birthday Hug Countdown</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
-
-    /* Basic reset */
-    body, html {
+    html, body {
       margin: 0; padding: 0; height: 100%;
-      font-family: Arial, sans-serif;
-      background: #000;
+      background-color: #000;
       color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .hidden { display: none; }
-
-    /* === Cake blowing screen === */
-    #cakeScreen {
+      font-family: sans-serif;
       text-align: center;
-      max-width: 400px;
-      padding: 20px;
-    }
-    #cakeScreen h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-    #cakeScreen img {
-      width: 100%;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 30px #ff7a7a;
-    }
-    #cakeScreen p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      font-family: 'Homemade Apple', cursive;
-      color: #ff9a9a;
-    }
-    #micStatus {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 10px;
-      color: #ff5555;
     }
 
-    /* === Birthday card screen === */
-    #cardScreen {
-      max-width: 600px;
-      background: #fff8f0;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      padding: 40px 30px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-      text-align: left;
-      font-family: 'Homemade Apple', cursive;
-      color: #333;
-      line-height: 1.6;
-    }
-    #cardScreen h2 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      text-align: center;
-      color: #e44a4a;
-    }
-    #cardScreen p {
-      font-size: 1.4rem;
-      white-space: pre-line;
-    }
-    #showCountdownBtn {
-      display: block;
-      margin: 30px auto 0;
-      padding: 12px 24px;
-      font-size: 1.1rem;
-      background-color: #e44a4a;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: background 0.3s ease;
-    }
-    #showCountdownBtn:hover {
-      background-color: #b03838;
-    }
-
-    /* === Countdown + plane screen === */
-    #countdownScreen {
-      width: 100vw;
+    #cakeScreen, #cardScreen, #countdownScreen {
       height: 100vh;
-      background: #000;
-      color: #fff;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
       padding: 20px;
-      box-sizing: border-box;
     }
-    #countdownScreen h1 {
-      font-size: 3rem;
-      margin: 20px 0 10px;
-    }
-    #countdown {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      font-family: 'Homemade Apple', cursive;
-    }
-    #distance {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      font-family: Arial, sans-serif;
-    }
-    #map {
-      width: 90vw;
-      max-width: 800px;
-      height: 50vh;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 0 20px #2c2c2c;
-      border: 1px solid #444;
-    }
-  </style>
 
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    crossorigin=""
-  />
+    .hidden {
+      display: none !important;
+    }
+
+    /* Cake screen */
+    #cakeScreen h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    #cakeScreen p {
+      font-size: 1.5em;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+
+    /* Card screen */
+    #cardScreen {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 40px auto;
+      color: #333;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      padding: 40px 30px;
+    }
+    #cardScreen h2 {
+      font-family: 'Cursive', sans-serif;
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      color: #6a1b9a;
+    }
+    #cardScreen p {
+      font-size: 1.3em;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+    #cardScreen button {
+      background-color: #6a1b9a;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #cardScreen button:hover {
+      background-color: #4a0e6e;
+    }
+
+    /* Countdown screen */
+    #countdownScreen h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    #countdownScreen #countdown {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    #countdownScreen #distance {
+      font-size: 1.5em;
+      margin-bottom: 40px;
+    }
+
+  </style>
 </head>
 <body>
 
-  <!-- Cake blowing screen -->
+  <!-- Cake screen visible by default -->
   <section id="cakeScreen">
-    <h1>Blow out your birthday candles!</h1>
-    <img src="https://images.unsplash.com/photo-1551685520-0b6a849ccdbf?auto=format&fit=crop&w=600&q=80" alt="Birthday cake" />
-    <p>Use your mic to blow out the candles 🎂💨</p>
-    <div id="micStatus">Waiting for your breath...</div>
+    <h1>Happy 21st Birthday!</h1>
+    <p>Blow out the candles to reveal your surprise 🎂🎉</p>
+    <button id="blowButton">I Blew the Candles!</button>
   </section>
 
-  <!-- Birthday card screen -->
-  <section id="cardScreen" class="hidden">
-    <h2>Happy 21st, My Beautiful Sophia 🎂</h2>
+  <!-- Card screen hidden by default -->
+  <section id="cardScreen" class="hidden" style="display:none;">
+    <h2>Happy 21st Birthday!</h2>
     <p>
-      From Bratislava to Dublin, and every little laugh in between —<br />
-      I can't wait to hug you soon.<br /><br />
-      Here's to your bright future and all the memories we're about to make 💖
+      Wishing you a day filled with love, laughter, and unforgettable memories.  
+      Can't wait to see you soon and give you the biggest hug! ❤️
     </p>
-    <button id="showCountdownBtn">See the Countdown & Journey ✈️</button>
+    <button id="showCountdownBtn">See Your Countdown</button>
   </section>
 
-  <!-- Countdown + plane screen -->
-  <section id="countdownScreen" class="hidden">
-    <h1>First Hug In:</h1>
+  <!-- Countdown screen hidden by default -->
+  <section id="countdownScreen" class="hidden" style="display:none;">
+    <h1>Your Hug Countdown</h1>
     <div id="countdown">Loading...</div>
     <div id="distance">Calculating distance...</div>
-    <div id="map"></div>
-    <div id="note" style="margin-top: 15px; font-size: 1rem; opacity: 0.7;">
-      Made with love for you ❤️
-    </div>
   </section>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <script>
-    // --- MIC BLOW DETECTION LOGIC ---
-    const micStatus = document.getElementById("micStatus");
-    const cakeScreen = document.getElementById("cakeScreen");
-    const cardScreen = document.getElementById("cardScreen");
-    const countdownScreen = document.getElementById("count
+    // Show/hide utility function: only one visible at a time
+    function showSection(id) {
+      ['cakeScreen', 'cardScreen', 'countdownScreen'].forEach(sectionId => {
+        const el = document.getElementById(sectionId);
+        if (sectionId === id) {
+          el.classList.remove('hidden');
+          el.style.display = 'flex';
+        } else {
+          el.classList.add('hidden');
+          el.style.display = 'none';
+        }
+      });
+    }
+
+    // Elements
+    const blowButton = document.getElementById('blowButton');
+    const showCountdownBtn = document.getElementById('showCountdownBtn');
+
+    // Blow button click: show birthday card
+    blowButton.addEventListener('click', () => {
+      showSection('cardScreen');
+    });
+
+    // Show countdown button click: show countdown screen
+    showCountdownBtn.addEventListener('click', () => {
+      showSection('countdownScreen');
+    });
+
+    // --- Countdown + plane animation code ---
+    // Dates: Bratislava to Dublin, landing Sept 2, 2025 01:15 Dublin time (BST/UTC+1)
+    const startDate = new Date('2025-08-15T00:00:00Z').getTime(); // example start date
+    const targetDate = new Date('2025-09-02T00:15:00Z').getTime();
+
+    // Map and animation code would go here (or imported from external file)
+
+    const countdownEl = document.getElementById("countdown");
+    const distanceEl = document.getElementById("distance");
+
+    // For demonstration, simple countdown timer only (no map here)
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        countdownEl.textContent = "You're here! ❤️";
+        distanceEl.textContent = "";
+        clearInterval(countdownInterval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      distanceEl.textContent = "Flight from Bratislava to Dublin landing soon!";
+    }
+
+    let countdownInterval;
+
+    // Start countdown when countdownScreen is shown
+    function startCountdown() {
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
+    // Hook into showSection to start countdown when countdownScreen is shown
+    const originalShowSection = showSection;
+    showSection = function(id) {
+      originalShowSection(id);
+      if (id === 'countdownScreen') {
+        startCountdown();
+      }
+    }
+
+  </script>
+
+</body>
+</html>
