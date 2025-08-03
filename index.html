@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy 21st Sophia 🎉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>21st Birthday Countdown</title>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 🎂 Cake Screen -->
-  <div id="cakeScreen" class="screen">
-    <img src="cake.png" id="cakeImage" alt="Birthday Cake" />
-    <p>Blow out the candles to see your surprise! 🎂</p>
-  </div>
 
-<!-- 💌 Birthday Card (Hidden initially) -->
-<div id="cardScreen" class="screen hidden">
-  <div class="card postcard">
-    <h2>Happy 21st, My Beautiful Sophia 🎂</h2>
-    <p>
-      From Bratislava to Dublin, and every little laugh in between —<br>
-      I can't wait to hug you soon.<br><br>
-      Here's to your bright future and all the memories we're about to make 💖
-    </p>
-    <button id="showButton">Flip to Surprise ✈️</button>
-  </div>
-</div>
+  <!-- Page 1: Blow Candles -->
+  <section id="page1" class="page visible">
+    <h1>Blow Out Your Birthday Candles!</h1>
+    <p>Use your mic to blow out the candles and reveal your surprise 🎂✨</p>
+    <img src="https://i.imgur.com/lXx9vKq.png" alt="Birthday Cake" class="cake" />
+    <div id="blowStatus">Waiting for your breath...</div>
+  </section>
 
-  <!-- ✈️ Countdown & Plane -->
-  <div id="countdownScreen" class="screen hidden">
-    <h2>Reunion Countdown</h2>
-    <div id="countdown">Loading...</div>
-    <div id="distance">Calculating...</div>
+  <!-- Page 2: Birthday Card -->
+  <section id="page2" class="page hidden">
+    <div class="card">
+      <h2>Happy 21st Birthday!</h2>
+      <p>
+        Wishing you a day filled with love, laughter, and unforgettable memories.
+      </p>
+      <p>Here’s to new adventures, and a year full of joy! 🎉❤️</p>
+      <button id="toCountdownBtn">See Countdown & Flight</button>
+    </div>
+  </section>
+
+  <!-- Page 3: Countdown + Plane Map -->
+  <section id="page3" class="page hidden">
+    <h2>Countdown to Your Arrival</h2>
+    <div id="countdown"></div>
+    <div id="distance">Calculating distance...</div>
     <div id="map"></div>
-  </div>
+  </section>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+
   <script src="client.js"></script>
 </body>
 </html>
-
