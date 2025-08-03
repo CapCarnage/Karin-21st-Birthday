@@ -16,13 +16,13 @@
 </head>
 <body>
 
-  <!-- Page 1: Blow Candles -->
-  <section id="page1" class="page visible">
-    <h1>Blow Out Your Birthday Candles!</h1>
-    <p>Use your mic to blow out the candles and reveal your surprise 🎂✨</p>
-    <img src="https://i.imgur.com/lXx9vKq.png" alt="Birthday Cake" class="cake" />
-    <div id="blowStatus">Waiting for your breath...</div>
-  </section>
+<!-- Page 1: Cake with Candles -->
+<div class="page" id="page1" style="display:none;">
+  <h2>Blow out the candles by clicking them!</h2>
+  <div id="candlesContainer" style="display:flex; flex-wrap: wrap; justify-content:center; max-width: 400px; margin: 0 auto;"></div>
+  <div id="blowStatus" style="margin-top: 10px; font-weight: bold; color: #ffdd00;"></div>
+</div>
+
 
   <!-- Page 2: Birthday Card -->
   <section id="page2" class="page hidden">
@@ -53,3 +53,4 @@
   <script src="client.js"></script>
 </body>
 </html>
+
