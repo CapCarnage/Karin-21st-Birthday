@@ -75,7 +75,7 @@ function initMap() {
 
     if (distance <= 0) {
       countdownEl.innerHTML = "You're here! ❤️";
-      distanceEl.innerHTML = "You're here!";
+      distanceEl.innerHTML = "You're here! ❤️";
       marker.setLatLng(dublin);
       return;
     }
@@ -100,3 +100,4 @@ function initMap() {
   setInterval(updateCountdown, 1000);
   updateCountdown();
 }
+
