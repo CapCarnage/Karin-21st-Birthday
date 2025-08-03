@@ -1,133 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>21st Birthday Surprise</title>
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #eee;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<p>Blow out the candles to see your surprise! 🎂</p>
+</div>
 
-    .screen {
-      display: none;
-      padding: 40px 20px;
-      min-height: 100vh;
-      box-sizing: border-box;
-      background-color: #222;
-      color: #fff;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+  <!-- 💌 Birthday Card -->
+  <div id="cardScreen" class="screen hidden">
+    <div class="card">
+      <h1>Happy 21st Birthday, Sophia! 💖</h1>
+      <p>
+        Today, we celebrate you — your laughter, your kindness, and the joy you bring into the world.
+        <br><br>
+        Here’s something magical counting down to when we hug again.
+      </p>
+      <button id="showCountdown">Show Me ✨</button>
+    </div>
+<!-- 💌 Birthday Card (Hidden initially) -->
+<div id="cardScreen" class="screen hidden">
+  <div class="card postcard">
+    <h2>Happy 21st, My Beautiful Sophia 🎂</h2>
+    <p>
+      From Bratislava to Dublin, and every little laugh in between —<br>
+      I can't wait to hug you soon.<br><br>
+      Here's to your bright future and all the memories we're about to make 💖
+    </p>
+    <button id="showButton">Flip to Surprise ✈️</button>
+</div>
+</div>
 
-    .screen.active {
-      display: flex;
-    }
-
-    #cake-screen img {
-      max-width: 200px;
-      margin-bottom: 20px;
-    }
-
-    button {
-      background: #4caf50;
-      border: none;
-      color: white;
-      padding: 12px 25px;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #45a049;
-    }
-
-    #card-screen {
-      background: #f9f5e3;
-      color: #333;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      max-width: 400px;
-      margin: auto;
-      padding: 30px;
-      flex-direction: column;
-      font-family: 'Georgia', serif;
-    }
-
-    #card-screen h2 {
-      margin-top: 0;
-      font-family: 'Brush Script MT', cursive;
-      font-size: 2.5rem;
-      color: #a0522d;
-    }
-
-    #card-screen p {
-      font-size: 1.2rem;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
-
-    #countdown-screen {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    #map {
-      height: 60vh;
-      border-radius: 10px;
-      margin-top: 20px;
-      box-shadow: 0 0 15px rgba(255 255 255 / 0.3);
-    }
-
-    #countdown {
-      font-size: 2rem;
-      margin: 10px 0 5px;
-      font-weight: bold;
-    }
-
-    #distance {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
-<body>
-  <!-- Screen 1: Cake -->
-  <div id="cake-screen" class="screen active">
-    <img src="https://img.icons8.com/emoji/96/birthday-cake-emoji.png" alt="Birthday Cake" />
-    <h1>Blow out the candles to reveal your surprise!</h1>
-  </div>
-
-  <!-- Screen 2: Birthday Card -->
-  <div id="card-screen" class="screen">
-    <h2>Happy 21st Birthday!</h2>
-    <p>Wishing you endless joy, love, and unforgettable moments on your special day. Here's to you and all the amazing adventures ahead! 🎉🎂❤️</p>
-    <button id="goToCountdown">See Your Surprise</button>
-  </div>
-
-  <!-- Screen 3: Countdown + Map -->
-  <div id="countdown-screen" class="screen">
-    <h1>First Hug Countdown</h1>
-    <div id="countdown">Loading...</div>
-    <div id="distance">Calculating distance...</div>
-    <div id="map"></div>
-  </div>
-
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  ></script>
-  <script src="client.js"></script>
+<!-- ✈️ Countdown & Plane -->
+<div id="countdownScreen" class="screen hidden">
+@@ -40,3 +40,4 @@ <h2>Reunion Countdown</h2>
+<script src="client.js"></script>
 </body>
 </html>
