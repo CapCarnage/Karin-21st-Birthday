@@ -4,7 +4,6 @@ const targetDate = startDate;  // Plane lands exactly at startDate
 
 const countdownEl = document.getElementById("countdown");
 const distanceEl = document.getElementById("distance");
-const blowStatus = document.getElementById("blowStatus");
 
 // Map Setup
 const map = L.map('map').setView([51.5, -3], 5); // Center roughly between Bratislava and Dublin
@@ -75,57 +74,56 @@ function update() {
 const updateInterval = setInterval(update, 1000);
 update();  // initial call
 
-// --- Breath Detection for blowing candles ---
-async function detectBlow() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const audioContext = new AudioContext();
-    const source = audioContext.createMediaStreamSource(stream);
-    const processor = audioContext.createScriptProcessor(2048, 1, 1);
+// --- Cake with 21 clickable candles ---
+const totalCandles = 21;
+let candlesBlown = 0;
+const candlesContainer = document.getElementById("candlesContainer");
+const blowStatus = document.getElementById("blowStatus");
 
-    source.connect(processor);
-    processor.connect(audioContext.destination);
-
-    let blowDetected = false;
-
-    processor.onaudioprocess = (event) => {
-      const input = event.inputBuffer.getChannelData(0);
-      let max = 0;
-      for (let i = 0; i < input.length; i++) {
-        if (Math.abs(input[i]) > max) max = Math.abs(input[i]);
+// Create 21 candle elements
+function createCandles() {
+  for (let i = 1; i <= totalCandles; i++) {
+    const candle = document.createElement("div");
+    candle.classList.add("candle");
+    candle.title = `Candle ${i}`;
+    candle.addEventListener("click", () => {
+      if (!candle.classList.contains("blown")) {
+        candle.classList.add("blown");
+        candlesBlown++;
+        blowStatus.textContent = `Candles blown: ${candlesBlown} / ${totalCandles}`;
+        if (candlesBlown === totalCandles) {
+          blowStatus.textContent = "All candles blown out! 🎉";
+          setTimeout(() => {
+            showPage(2); // Show birthday card page
+          }, 1500);
+        }
       }
-
-      // Adjust threshold if needed
-      if (max > 0.1 && !blowDetected) {
-        blowDetected = true;
-        blowStatus.textContent = "🎉 Candles blown out! 🎉";
-
-        // Cleanup audio processing
-        processor.disconnect();
-        source.disconnect();
-        audioContext.close();
-
-        // After a delay, show the birthday card (page 2)
-        setTimeout(() => {
-          showPage(2);
-        }, 1500);
-      }
-    };
-  } catch (err) {
-    blowStatus.textContent = "Microphone access denied or not supported.";
-    console.error("Mic error:", err);
+    });
+    candlesContainer.appendChild(candle);
   }
 }
 
-// Call detectBlow when page 1 is shown (assume you call showPage(1) on load)
-document.addEventListener("DOMContentLoaded", () => {
-  showPage(1);
-  detectBlow();
-});
-
-// --- Page show/hide helper ---
+// Show/hide pages helper
 function showPage(num) {
   const pages = document.querySelectorAll(".page");
   pages.forEach(p => p.style.display = "none");
   document.getElementById(`page${num}`).style.display = "block";
+
+  // If page 1 is shown, reset candles
+  if (num === 1) {
+    resetCandles();
+  }
 }
+
+function resetCandles() {
+  candlesBlown = 0;
+  blowStatus.textContent = `Candles blown: 0 / ${totalCandles}`;
+  const candles = candlesContainer.querySelectorAll(".candle");
+  candles.forEach(c => c.classList.remove("blown"));
+}
+
+// Init on DOM ready
+document.addEventListener("DOMContentLoaded", () => {
+  createCandles();
+  showPage(1);
+});
