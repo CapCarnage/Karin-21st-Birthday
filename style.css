@@ -47,3 +47,7 @@ button {
   height: 400px;
   margin-top: 20px;
 }
+
+.hidden {
+  display: none !important;
+}
