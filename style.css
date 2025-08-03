@@ -51,3 +51,48 @@ button {
 .hidden {
   display: none !important;
 }
+
+.card.postcard {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 40px;
+  background: #fff8f0;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  text-align: left;
+  font-family: 'Homemade Apple', cursive;
+  color: #333;
+  line-height: 1.6;
+  position: relative;
+  transition: transform 0.6s ease;
+}
+
+.card.postcard h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.card.postcard p {
+  font-size: 20px;
+  white-space: pre-line;
+}
+
+#showButton {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #ff4f70;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+
+#showButton:hover {
+  background-color: #e73a5c;
+}
