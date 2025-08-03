@@ -1,22 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy 21st Sophia 🎉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Postcard</title>
+
+  <style>
+    /* Handwriting font import */
+    @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+
+    /* Basic reset */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff8f0;
+      font-family: Arial, sans-serif;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Postcard card styles */
+    .card.postcard {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 40px 30px;
+      background: #fff8f0;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      text-align: left;
+      font-family: 'Homemade Apple', cursive;
+      color: #333;
+      line-height: 1.6;
+      position: relative;
+      transition: transform 0.6s ease;
+    }
+
+    .card.postcard h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .card.postcard p {
+      font-size: 20px;
+      white-space: pre-line;
+    }
+
+    #showButton {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #ff4f70;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+
+    #showButton:hover {
+      background-color: #e73a5c;
+    }
+
+    /* Utility */
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <!-- 🎂 Cake Screen -->
-  <div id="cakeScreen" class="screen">
-    <img src="cake.png" id="cakeImage" alt="Birthday Cake" />
-    <p>Blow out the candles to see your surprise! 🎂</p>
-  </div>
 
-<!-- 💌 Birthday Card (Hidden initially) -->
-<div id="cardScreen" class="screen hidden">
-  <div class="card postcard">
+  <div id="cardScreen" class="card postcard">
     <h2>Happy 21st, My Beautiful Sophia 🎂</h2>
     <p>
       From Bratislava to Dublin, and every little laugh in between —<br>
@@ -25,19 +85,15 @@
     </p>
     <button id="showButton">Flip to Surprise ✈️</button>
   </div>
-</div>
 
-  <!-- ✈️ Countdown & Plane -->
-  <div id="countdownScreen" class="screen hidden">
-    <h2>Reunion Countdown</h2>
-    <div id="countdown">Loading...</div>
-    <div id="distance">Calculating...</div>
-    <div id="map"></div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="client.js"></script>
+  <script>
+    // Example button action to show how you can toggle views
+    document.getElementById('showButton').addEventListener('click', () => {
+      alert('Here you would transition to the next screen or surprise!');
+      // For example:
+      // document.getElementById('cardScreen').classList.add('hidden');
+      // document.getElementById('nextScreen').classList.remove('hidden');
+    });
+  </script>
 </body>
 </html>
-
