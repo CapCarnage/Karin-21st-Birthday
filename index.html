@@ -1,56 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>21st Birthday Countdown</title>
-
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    crossorigin=""
-  />
-
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Happy 21st Sophia 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
+  <!-- 🎂 Cake Screen -->
+  <div id="cakeScreen" class="screen">
+    <img src="cake.png" id="cakeImage" alt="Birthday Cake" />
+    <p>Blow out the candles to see your surprise! 🎂</p>
+  </div>
 
-<!-- Page 1: Cake with Candles -->
-<div class="page" id="page1" style="display:none;">
-  <h2>Blow out the candles by clicking them!</h2>
-  <div id="candlesContainer" style="display:flex; flex-wrap: wrap; justify-content:center; max-width: 400px; margin: 0 auto;"></div>
-  <div id="blowStatus" style="margin-top: 10px; font-weight: bold; color: #ffdd00;"></div>
-</div>
-
-
-  <!-- Page 2: Birthday Card -->
-  <section id="page2" class="page hidden">
+  <!-- 💌 Birthday Card -->
+  <div id="cardScreen" class="screen hidden">
     <div class="card">
-      <h2>Happy 21st Birthday!</h2>
+      <h1>Happy 21st Birthday, Sophia! 💖</h1>
       <p>
-        Wishing you a day filled with love, laughter, and unforgettable memories.
+        Today, we celebrate you — your laughter, your kindness, and the joy you bring into the world.
+        <br><br>
+        Here’s something magical counting down to when we hug again.
       </p>
-      <p>Here’s to new adventures, and a year full of joy! 🎉❤️</p>
-      <button id="toCountdownBtn">See Countdown & Flight</button>
+      <button id="showCountdown">Show Me ✨</button>
     </div>
-  </section>
+  </div>
 
-  <!-- Page 3: Countdown + Plane Map -->
-  <section id="page3" class="page hidden">
-    <h2>Countdown to Your Arrival</h2>
-    <div id="countdown"></div>
-    <div id="distance">Calculating distance...</div>
+  <!-- ✈️ Countdown & Plane -->
+  <div id="countdownScreen" class="screen hidden">
+    <h2>Reunion Countdown</h2>
+    <div id="countdown">Loading...</div>
+    <div id="distance">Calculating...</div>
     <div id="map"></div>
-  </section>
+  </div>
 
-  <!-- Leaflet JS -->
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    crossorigin=""
-  ></script>
-
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="client.js"></script>
 </body>
 </html>
-
